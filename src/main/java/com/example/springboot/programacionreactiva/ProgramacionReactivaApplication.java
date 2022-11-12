@@ -11,6 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import reactor.core.publisher.Flux;
 
+import java.util.Date;
+
 @SpringBootApplication
 public class ProgramacionReactivaApplication implements CommandLineRunner {
 
@@ -34,7 +36,10 @@ public class ProgramacionReactivaApplication implements CommandLineRunner {
             new Producto("Audífono Pro X Wireless", 800.00),
             new Producto("Iphone 13 64GB", 3000.00),
             new Producto("Monitor Xiaomi 4K", 2800.00)
-        ).flatMap(producto -> productoRepository.save(producto))
+        ).flatMap(producto -> {
+            producto.setCreateAt(new Date());
+            return productoRepository.save(producto);
+        })
         .subscribe(producto -> log.info("Crea: " + producto.getId() + " nombre: " + producto.getNombre()));
     }
 }
