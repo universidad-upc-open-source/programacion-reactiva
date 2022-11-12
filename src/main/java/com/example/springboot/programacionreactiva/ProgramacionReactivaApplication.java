@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import reactor.core.publisher.Flux;
 
 @SpringBootApplication
@@ -15,6 +16,9 @@ public class ProgramacionReactivaApplication implements CommandLineRunner {
 
     @Autowired
     private ProductoRepository productoRepository;
+
+    @Autowired
+    private ReactiveMongoTemplate mongoTemplate;
     private static final Logger log = LoggerFactory.getLogger(ProgramacionReactivaApplication.class);
     public static void main(String[] args) {
         SpringApplication.run(ProgramacionReactivaApplication.class, args);
@@ -22,6 +26,9 @@ public class ProgramacionReactivaApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+        // Para desarrollo, eliminamos la colección
+        mongoTemplate.dropCollection("productos").subscribe();
         Flux.just(
             new Producto("Mesa Altura Regulable", 1369.89),
             new Producto("Audífono Pro X Wireless", 800.00),
