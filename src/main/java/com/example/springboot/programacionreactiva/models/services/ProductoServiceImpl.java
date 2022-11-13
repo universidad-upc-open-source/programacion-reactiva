@@ -46,4 +46,13 @@ public class ProductoServiceImpl implements ProductoService {
         Mono<Producto> producto = productos.filter(p -> p.getId().equals(id)).next();
         return producto;
     }
+
+    public Mono<Producto> save(Producto producto) {
+        /*
+         * if (StringUtils.isEmpty(producto.getCreateAt())) {
+         * producto.setCreateAt(new Date());
+         * }
+         */
+        return productoRepository.save(producto);
+    }
 }
