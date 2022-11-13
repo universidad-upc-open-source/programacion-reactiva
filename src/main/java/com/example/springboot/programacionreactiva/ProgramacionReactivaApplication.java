@@ -37,7 +37,8 @@ public class ProgramacionReactivaApplication implements CommandLineRunner {
             new Producto("Iphone 13 64GB", 3000.00),
             new Producto("Monitor Xiaomi 4K", 2800.00),
             new Producto("Lámpara de mesa", 129.90),
-            new Producto("Cámara Sony Z1", 3500.00)
+            new Producto("Cámara Sony Z1", 3500.00),
+            new Producto("Soporte de monitor", 349.00)
             ).flatMap(producto -> {
             producto.setCreateAt(new Date());
             return productoRepository.save(producto);
